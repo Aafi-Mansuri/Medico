@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1082132026553",
+    "project_id": "medico-ibhavan",
+    "storage_bucket": "medico-ibhavan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082132026553:android:0eaa0c3906239f91f4f768",
+        "android_client_info": {
+          "package_name": "com.example.medico_ibhavan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1082132026553-64j5je9i45ecm7p9ml78q3rm9ndo56i6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnP-8rZklCYeTZyk-iqzrYziqlSQLn88E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1082132026553-64j5je9i45ecm7p9ml78q3rm9ndo56i6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
