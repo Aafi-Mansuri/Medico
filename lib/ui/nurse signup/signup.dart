@@ -5,6 +5,7 @@ import 'package:medico_ibhavan/ui/nurse%20signup/nurse_signup_controller.dart';
 import 'package:medico_ibhavan/ui/nurse%20signup/signup_validators.dart';
 import 'package:medico_ibhavan/utils/auth.dart';
 import 'package:medico_ibhavan/utils/colors.dart';
+import 'package:medico_ibhavan/utils/components/alert_box.dart';
 import 'package:medico_ibhavan/utils/components/date_picker.dart';
 import 'package:medico_ibhavan/utils/components/pdf_picker_button.dart';
 import 'package:medico_ibhavan/utils/components/signup_button.dart';
@@ -170,7 +171,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         prefixIcon: Icons.account_circle,
                       ),
                       const SizedBox(height: 10),
-                      const PickDate(buttonText: dob),
+                      PickDate(
+                        buttonText: dob,
+                        controller: controller,
+                      ),
                       const SizedBox(height: 10),
                       MyTextField(
                         controller: controller.phoneController,
@@ -249,6 +253,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         buttonText: upload_certi,
                         onChanged: (filePath) {
                           // Handle the selected file path here
+                          controller.certificate_pdf = filePath;
                           print('Certificate File Path: $filePath');
                         },
                       ),
@@ -257,6 +262,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         buttonText: upload_id,
                         onChanged: (filePath) {
                           // Handle the selected file path here
+                          controller.id_pdf = filePath;
                           print('ID Proof File Path: $filePath');
                         },
                       ),
@@ -265,6 +271,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         buttonText: upload_covid_vac,
                         onChanged: (filePath) {
                           // Handle the selected file path here
+                          controller.covid_vac_pdf = filePath;
                           print('COVID Vaccination File Path: $filePath');
                         },
                       ),
@@ -272,9 +279,43 @@ class _SignUpPageState extends State<SignUpPage> {
                       SignUpButton(
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            print('Form is valid. Signing up...');
+                            print('Form is valid.');
 
-                            //SignUp Logic
+                            if (controller.dateOfBirth == null) {
+                              setState(() {
+                                errorMessage = 'Please select a date of birth';
+                                print(errorMessage);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return const AlertBox(
+                                      title: 'Date of Birth not selected',
+                                      message: 'Please select a date of birth.',
+                                    );
+                                  },
+                                );
+                              });
+                              return;
+                            } else if (controller.id_pdf == null ||
+                                controller.certificate_pdf == null ||
+                                controller.covid_vac_pdf == null) {
+                              setState(() {
+                                errorMessage = 'Upload all documents';
+                                print(errorMessage);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return const AlertBox(
+                                      title: 'Documents Not Uploaded',
+                                      message: 'Please upload all documents.',
+                                    );
+                                  },
+                                );
+                              });
+                              return;
+                            }
+
+                            print('Signing up...');
                             signUpWithEmailAndPassword();
                           } else {
                             print('Form invalid');

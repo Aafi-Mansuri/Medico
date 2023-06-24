@@ -20,4 +20,9 @@ class SignUpController {
   final stateController = TextEditingController();
   final totalYearsController = TextEditingController();
   final specializationController = TextEditingController();
+
+  //Documents Detials
+  String? certificate_pdf;
+  String? id_pdf;
+  String? covid_vac_pdf;
 }

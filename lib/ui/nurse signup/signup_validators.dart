@@ -78,8 +78,8 @@ class Validators {
       return 'Please enter address line 1';
     }
 
-    if (!RegexConstants.addressLine1Regex.hasMatch(value)) {
-      return 'Please enter a valid address line 1';
+    if (!RegexConstants.addressLineRegex.hasMatch(value)) {
+      return 'Please  enter a valid address containing\nletters, numbers, spaces, and hyphens\n(1-100 characters).';
     }
 
     return null; // Return null if input is valid
@@ -89,8 +89,8 @@ class Validators {
     if (value == null || value.isEmpty) {
       return 'Please enter address line 1';
     }
-    if (!RegexConstants.addressLine2Regex.hasMatch(value)) {
-      return 'Please enter a valid address line 2';
+    if (!RegexConstants.addressLineRegex.hasMatch(value)) {
+      return 'Please  enter a valid address containing\nletters, numbers, spaces, and hyphens\n(1-100 characters).';
     }
 
     return null; // Return null if input is valid

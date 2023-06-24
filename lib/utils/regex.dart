@@ -19,12 +19,8 @@ class RegexConstants {
     r'^[0-9]{10}$',
   );
 
-  static final RegExp addressLine1Regex = RegExp(
-    r'^[a-zA-Z0-9\s]+$',
-  );
-
-  static final RegExp addressLine2Regex = RegExp(
-    r'^[a-zA-Z0-9\s]+$',
+  static final RegExp addressLineRegex = RegExp(
+    r'^[a-zA-Z0-9\s-]{1,100}$',
   );
 
   static final RegExp cityRegex = RegExp(

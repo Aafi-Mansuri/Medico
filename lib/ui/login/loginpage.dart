@@ -3,6 +3,7 @@ import 'package:medico_ibhavan/ui/home/home.dart';
 import 'package:medico_ibhavan/ui/nurse%20signup/signup.dart';
 import 'package:medico_ibhavan/utils/auth.dart';
 import 'package:medico_ibhavan/utils/colors.dart';
+import 'package:medico_ibhavan/utils/components/alert_box.dart';
 import 'package:medico_ibhavan/utils/components/signup_button.dart';
 import 'package:medico_ibhavan/utils/components/text_feild.dart';
 import 'package:medico_ibhavan/utils/constants.dart';
@@ -44,17 +45,9 @@ class _LoginPageState extends State<LoginPage> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Error'),
-            content: Text('Incorrect email or password. Please try again!'),
-            actions: [
-              TextButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.pop(context); // Close the dialog
-                },
-              ),
-            ],
+          return const AlertBox(
+            title: 'Error',
+            message: 'Incorrect email or password. Please try again!',
           );
         },
       );

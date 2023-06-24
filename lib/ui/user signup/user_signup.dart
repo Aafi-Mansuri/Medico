@@ -76,7 +76,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
               pinned: false,
               floating: true,
               snap: true,
-              title: const Text('Medico'),
+              title: const Text('Medico User Sign Up'),
             ),
             SliverFillRemaining(
               hasScrollBody: false,
@@ -106,7 +106,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text('Already have an account?'),
+                          const Text('Already have an account? '),
                           GestureDetector(
                             onTap: _navigateToSignInPage,
                             child: const Text(
@@ -128,6 +128,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                         obscureText: false,
                         keyboardType: TextInputType.emailAddress,
                         validator: Validators.validateEmail,
+                        prefixIcon: Icons.email_outlined,
                       ),
                       const SizedBox(height: 10),
                       MyTextField(
@@ -135,6 +136,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                         hintText: password,
                         obscureText: true,
                         validator: Validators.validatePassword,
+                        prefixIcon: Icons.lock_outline_rounded,
                       ),
                       const SizedBox(height: 10),
                       MyTextField(
@@ -144,6 +146,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                         validator: (value) =>
                             Validators.validateConfirmPassword(
                                 value, controller.passwordController.text),
+                        prefixIcon: Icons.lock_outline_rounded,
                       ),
                       const SizedBox(height: 40),
                       const Text(
@@ -156,6 +159,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                         hintText: first_name,
                         obscureText: false,
                         validator: Validators.validateFirstName,
+                        prefixIcon: Icons.account_circle,
                       ),
                       const SizedBox(height: 10),
                       MyTextField(
@@ -163,9 +167,13 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                         hintText: last_name,
                         obscureText: false,
                         validator: Validators.validateLastName,
+                        prefixIcon: Icons.account_circle,
                       ),
                       const SizedBox(height: 10),
-                      const PickDate(buttonText: dob),
+                      PickDate(
+                        buttonText: dob,
+                        controller: controller,
+                      ),
                       const SizedBox(height: 10),
                       MyTextField(
                         controller: controller.phoneController,
@@ -173,6 +181,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                         obscureText: false,
                         keyboardType: TextInputType.phone,
                         validator: Validators.validatePhoneNumber,
+                        prefixIcon: Icons.phone,
                       ),
                       const SizedBox(height: 40),
                       const Text(
@@ -185,6 +194,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                         hintText: address_line1,
                         obscureText: false,
                         validator: Validators.validateAddressLine1,
+                        prefixIcon: Icons.location_on_outlined,
                       ),
                       const SizedBox(height: 10),
                       MyTextField(
@@ -192,6 +202,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                         hintText: address_line2,
                         obscureText: false,
                         validator: Validators.validateAddressLine2,
+                        prefixIcon: Icons.location_on_outlined,
                       ),
                       const SizedBox(height: 10),
                       MyTextField(
@@ -199,6 +210,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                         hintText: city,
                         obscureText: false,
                         validator: Validators.validateCity,
+                        prefixIcon: Icons.location_on_outlined,
                       ),
                       const SizedBox(height: 10),
                       MyTextField(
@@ -206,42 +218,9 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                         hintText: state,
                         obscureText: false,
                         validator: Validators.validateState,
+                        prefixIcon: Icons.location_on_outlined,
                       ),
                       const SizedBox(height: 40),
-                      const Text(
-                        work_xp,
-                        style: TextStyle(fontSize: 15, color: Color(darkGrey)),
-                      ),
-                      const SizedBox(height: 10),
-                      const SizedBox(height: 40),
-                      const Text(
-                        upload_doc,
-                        style: TextStyle(fontSize: 15, color: Color(darkGrey)),
-                      ),
-                      const SizedBox(height: 10),
-                      // PDFPicker(
-                      //   buttonText: upload_certi,
-                      //   onChanged: (filePath) {
-                      //     // Handle the selected file path here
-                      //     print('Certificate File Path: $filePath');
-                      //   },
-                      // ),
-                      const SizedBox(height: 10),
-                      PDFPicker(
-                        buttonText: upload_id,
-                        onChanged: (filePath) {
-                          // Handle the selected file path here
-                          print('ID Proof File Path: $filePath');
-                        },
-                      ),
-                      const SizedBox(height: 10),
-                      PDFPicker(
-                        buttonText: upload_covid_vac,
-                        onChanged: (filePath) {
-                          // Handle the selected file path here
-                          print('COVID Vaccination File Path: $filePath');
-                        },
-                      ),
                       const SizedBox(height: 30),
                       SignUpButton(
                         onTap: () {
