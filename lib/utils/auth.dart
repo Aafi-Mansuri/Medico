@@ -36,4 +36,9 @@ class Auth {
       return false;
     }
   }
+
+  Future passwordReset(email) async {
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
+    return;
+  }
 }

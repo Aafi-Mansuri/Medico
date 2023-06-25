@@ -8,6 +8,7 @@ class MyTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final FormFieldValidator<String>? validator;
   final IconData? prefixIcon;
+  final bool showEyeIcon;
 
   const MyTextField({
     Key? key,
@@ -17,6 +18,7 @@ class MyTextField extends StatefulWidget {
     this.keyboardType,
     this.validator,
     this.prefixIcon,
+    this.showEyeIcon = false,
   }) : super(key: key);
 
   @override
@@ -25,6 +27,13 @@ class MyTextField extends StatefulWidget {
 
 class _MyTextFieldState extends State<MyTextField> {
   String? errorText;
+  bool isObscureText = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isObscureText = widget.obscureText;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +41,7 @@ class _MyTextFieldState extends State<MyTextField> {
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: TextFormField(
         controller: widget.controller,
-        obscureText: widget.obscureText,
+        obscureText: isObscureText,
         keyboardType: widget.keyboardType,
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
@@ -41,11 +50,23 @@ class _MyTextFieldState extends State<MyTextField> {
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Color.fromARGB(255, 90, 174, 230)),
           ),
-          fillColor: const Color(whiteColor2),
+          fillColor: const Color(whiteColor),
           filled: true,
           hintText: widget.hintText,
           prefixIcon:
               widget.prefixIcon != null ? Icon(widget.prefixIcon) : null,
+          suffixIcon: widget.showEyeIcon
+              ? GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isObscureText = !isObscureText;
+                    });
+                  },
+                  child: Icon(
+                    isObscureText ? Icons.visibility : Icons.visibility_off,
+                  ),
+                )
+              : null,
           errorText: errorText,
         ),
         onChanged: (value) {

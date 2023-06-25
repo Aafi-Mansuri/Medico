@@ -20,6 +20,8 @@ const String upload_doc = 'Upload Documents';
 const String upload_certi = 'Upload Certificate';
 const String upload_id = 'Upload ID Proof';
 const String upload_covid_vac = 'Upload Covid-19 Vaccination';
+const String tagline =
+    'Experience a new level of care and comfort with Medico App, where finding skilled nurses for your specific needs is just a tap away!';
 
 class ImagesName {
   static String logo = 'lib/ui/assets/ibhavan-logo.jpg';

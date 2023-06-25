@@ -17,7 +17,7 @@ class _AuthCheckState extends State<AuthCheck> {
       stream: Auth().authStateChanges,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasData) {
           return HomePage();
         } else {

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:medico_ibhavan/ui/home/home.dart';
+import 'package:medico_ibhavan/ui/login/forgot_password.dart';
 import 'package:medico_ibhavan/ui/nurse%20signup/signup.dart';
+import 'package:medico_ibhavan/ui/user%20signup/user_signup.dart';
 import 'package:medico_ibhavan/utils/auth.dart';
 import 'package:medico_ibhavan/utils/colors.dart';
 import 'package:medico_ibhavan/utils/components/alert_box.dart';
-import 'package:medico_ibhavan/utils/components/signup_button.dart';
+import 'package:medico_ibhavan/utils/components/my_button2.dart';
 import 'package:medico_ibhavan/utils/components/text_feild.dart';
 import 'package:medico_ibhavan/utils/constants.dart';
 import 'login_controller.dart';
@@ -54,28 +56,93 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  void _navigateToWelcomePage() {
+    Navigator.popUntil(context, ModalRoute.withName('/'));
+  }
+
   void _navigateToSignUpPage() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const SignUpPage()),
-    );
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: const Color(pureWhite),
+            title: const Text(
+              "Register As",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            icon: const Icon(
+              Icons.login_rounded,
+              color: Color(pureBlack),
+              size: 50,
+            ),
+            actions: [
+              MyButton2(
+                  vPadding: 15,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => UserSignUpPage()),
+                    );
+                  },
+                  buttonText: "User"),
+              const SizedBox(
+                height: 15,
+              ),
+              MyButton2(
+                  vPadding: 15,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SignUpPage()),
+                    );
+                  },
+                  buttonText: "Nurse"),
+              //   TextButton(
+              //     onPressed: () {
+
+              //     },
+              //     child: const Text(
+              //       "User",
+              //       style: TextStyle(color: Color(blue)),
+              //     ),
+              //   ),
+              //   TextButton(
+              //       onPressed: () {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) =>
+              //                   const SignUpPage()),
+              //         );
+              //       },
+              //       child: const Text("Nurse")),
+            ],
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(16))),
+            alignment: AlignmentDirectional.center,
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(bgcolor),
-      // appBar: AppBar(
-      //   backgroundColor: const Color(bgcolor),
-      //   leading: IconButton(
-      //     icon: const Icon(Icons.arrow_back),
-      //     onPressed: _navigateToWelcomePage,
-      //   ),
-      // ),
+      appBar: AppBar(
+        backgroundColor: Color(bgcolor),
+        title: const Text('Medico Sign In'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: _navigateToWelcomePage,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 75),
+            const SizedBox(height: 65),
             SizedBox(
               child: Image.asset(
                 ImagesName.logo,
@@ -108,18 +175,16 @@ class _LoginPageState extends State<LoginPage> {
             MyTextField(
               controller: controller.passwordController,
               hintText: password,
+              showEyeIcon: true,
               obscureText: true,
               prefixIcon: Icons.lock_outline_rounded,
             ),
 
-            const SizedBox(height: 10),
-
             forgetPassword(context),
 
             const SizedBox(height: 20),
-            SignUpButton(
+            MyButton2(
               onTap: () {
-                print('test');
                 print('Entered email: ${controller.emailController.text}');
                 print(
                     'Entered password: ${controller.passwordController.text}');
@@ -188,16 +253,22 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget forgetPassword(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       width: MediaQuery.of(context).size.width,
       height: 35,
       alignment: Alignment.bottomRight,
       child: TextButton(
         child: const Text(
           "Forgot Password?",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Color(blue)),
           textAlign: TextAlign.right,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
+          );
+        },
       ),
     );
   }

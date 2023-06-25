@@ -5,9 +5,9 @@ import 'package:medico_ibhavan/ui/nurse%20signup/signup_validators.dart';
 import 'package:medico_ibhavan/ui/user%20signup/user_signup_controller.dart';
 import 'package:medico_ibhavan/utils/auth.dart';
 import 'package:medico_ibhavan/utils/colors.dart';
+import 'package:medico_ibhavan/utils/components/alert_box.dart';
 import 'package:medico_ibhavan/utils/components/date_picker.dart';
-import 'package:medico_ibhavan/utils/components/pdf_picker_button.dart';
-import 'package:medico_ibhavan/utils/components/signup_button.dart';
+import 'package:medico_ibhavan/utils/components/my_button2.dart';
 import 'package:medico_ibhavan/utils/components/text_feild.dart';
 import 'package:medico_ibhavan/utils/constants.dart';
 
@@ -102,7 +102,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                         enter_details,
                         style: TextStyle(fontSize: 15, color: Color(darkGrey)),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 15),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -120,7 +120,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                         ],
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 15,
                       ),
                       MyTextField(
                         controller: controller.emailController,
@@ -134,6 +134,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                       MyTextField(
                         controller: controller.passwordController,
                         hintText: password,
+                        showEyeIcon: true,
                         obscureText: true,
                         validator: Validators.validatePassword,
                         prefixIcon: Icons.lock_outline_rounded,
@@ -142,6 +143,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                       MyTextField(
                         controller: controller.confirmPasswordController,
                         hintText: confirm_password,
+                        showEyeIcon: true,
                         obscureText: true,
                         validator: (value) =>
                             Validators.validateConfirmPassword(
@@ -222,15 +224,41 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                       ),
                       const SizedBox(height: 40),
                       const SizedBox(height: 30),
-                      SignUpButton(
+                      MyButton2(
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
+                            if (controller.dateOfBirth == null) {
+                              setState(() {
+                                errorMessage = 'Please select a date of birth';
+                                print(errorMessage);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return const AlertBox(
+                                      title: 'Date of Birth not selected',
+                                      message: 'Please select a date of birth.',
+                                    );
+                                  },
+                                );
+                              });
+                              return;
+                            }
                             print('Form is valid. Signing up...');
 
                             //SignUp Logic
                             signUpWithEmailAndPassword();
                           } else {
                             print('Form invalid');
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const AlertBox(
+                                  title: 'Incomplete Details',
+                                  message:
+                                      'Please fill in all the required fields.',
+                                );
+                              },
+                            );
                           }
                         },
                         buttonText: 'Sign Up',
