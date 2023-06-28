@@ -7,6 +7,7 @@ import 'package:medico_ibhavan/utils/auth.dart';
 import 'package:medico_ibhavan/utils/colors.dart';
 import 'package:medico_ibhavan/utils/components/alert_box.dart';
 import 'package:medico_ibhavan/utils/components/my_button2.dart';
+import 'package:medico_ibhavan/utils/components/snackbar.dart';
 import 'package:medico_ibhavan/utils/components/text_feild.dart';
 import 'package:medico_ibhavan/utils/constants.dart';
 import 'login_controller.dart';
@@ -34,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
       print('Signed in successfully!');
       print(Auth().currentUser);
 
+      //Navigate to Home
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => HomePage()),
@@ -43,15 +45,10 @@ class _LoginPageState extends State<LoginPage> {
       setState(() {
         errorMessage = e.message;
       });
-
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const AlertBox(
-            title: 'Error',
-            message: 'Incorrect email or password. Please try again!',
-          );
-        },
+      CustomSnackBar.show(
+        context,
+        backgroundColor: Colors.redAccent.withOpacity(0.7),
+        message: loginErrorMessage,
       );
     });
   }

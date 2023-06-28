@@ -14,7 +14,7 @@ class PickDate extends StatefulWidget {
 }
 
 class _PickDateState extends State<PickDate> {
-  DateTime? dateOfBirth;
+  String? dateOfBirth;
 
   pickDate() async {
     DateTime? datePicked = await showDatePicker(
@@ -25,8 +25,8 @@ class _PickDateState extends State<PickDate> {
     );
     if (datePicked != null) {
       setState(() {
-        dateOfBirth = datePicked;
-        widget.controller.dateOfBirth = datePicked;
+        dateOfBirth = DateFormat('yyyy-MM-dd').format(datePicked);
+        widget.controller.dateOfBirth = dateOfBirth;
       });
     }
   }
@@ -35,9 +35,8 @@ class _PickDateState extends State<PickDate> {
   Widget build(BuildContext context) {
     return MyButton(
       onTap: pickDate,
-      buttonText: dateOfBirth != null
-          ? 'Date of Birth: ${DateFormat('yyyy-MM-dd').format(dateOfBirth!)}'
-          : 'Date of Birth',
+      buttonText:
+          dateOfBirth != null ? 'Date of Birth: $dateOfBirth' : 'Date of Birth',
       prefixIcon: Icons.calendar_month,
     );
   }

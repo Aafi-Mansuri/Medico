@@ -10,7 +10,7 @@ class UserSignUpController {
   //Personal Details
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
-  DateTime? dateOfBirth;
+  String? dateOfBirth;
   final phoneController = TextEditingController();
 
   //Address Details

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:medico_ibhavan/ui/nurse%20signup/signup_validators.dart';
 import 'package:medico_ibhavan/utils/auth.dart';
 import 'package:medico_ibhavan/utils/colors.dart';
-import 'package:medico_ibhavan/utils/components/alert_box.dart';
 import 'package:medico_ibhavan/utils/components/my_button2.dart';
+import 'package:medico_ibhavan/utils/components/snackbar.dart';
 import 'package:medico_ibhavan/utils/components/text_feild.dart';
 import 'package:medico_ibhavan/utils/constants.dart';
 
@@ -21,61 +21,22 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Future resetPassword() async {
     try {
       await Auth().passwordReset(emailController.text);
-
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text(
-              'Password Recovery Email Sent',
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-            ),
-            content: const Text(
-              'An email with a password reset link has been sent to your email address. Please check your inbox.',
-              style: TextStyle(fontSize: 17),
-            ),
-            actions: [
-              TextButton(
-                child: const Text('OK'),
-                onPressed: () {
-                  Navigator.pop(context); // Close the dialog
-                },
-              ),
-            ],
-          );
-        },
-      );
+      CustomSnackBar.show(context,
+          backgroundColor: Colors.green.withOpacity(0.7),
+          message: pswdResetMessage);
     } on FirebaseAuthException catch (e) {
-      String errorMessage;
-      String errorTitle;
-      print('test' + e.code);
+      print(e.code);
       if (e.code == 'user-not-found') {
-        errorTitle = 'User Not Found';
-        errorMessage =
-            'Sorry, we couldn\'t find any user associated with the provided email address.';
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text(
-                errorTitle,
-                style:
-                    const TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-              content: Text(
-                errorMessage,
-                style: const TextStyle(fontSize: 17),
-              ),
-              actions: [
-                TextButton(
-                  child: const Text('OK'),
-                  onPressed: () {
-                    Navigator.pop(context); // Close the dialog
-                  },
-                ),
-              ],
-            );
-          },
+        CustomSnackBar.show(
+          context,
+          backgroundColor: Colors.redAccent.withOpacity(0.7),
+          message: userNotFoundMessage,
+        );
+      } else if (e.code == 'too-many-requests') {
+        CustomSnackBar.show(
+          context,
+          backgroundColor: Colors.redAccent.withOpacity(0.7),
+          message: 'You\'ve sent too many request! Try again later.',
         );
       }
     } catch (e) {

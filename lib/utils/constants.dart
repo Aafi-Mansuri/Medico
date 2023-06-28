@@ -22,6 +22,16 @@ const String upload_id = 'Upload ID Proof';
 const String upload_covid_vac = 'Upload Covid-19 Vaccination';
 const String tagline =
     'Experience a new level of care and comfort with Medico App, where finding skilled nurses for your specific needs is just a tap away!';
+const String dobErrorMessage = 'Please select a date of birth';
+const String formErrorMessage = 'Please fill in all the required fields.';
+const String loginErrorMessage =
+    'Incorrect email or password. Please try again!';
+const String defaultErrorMessage = 'Something went wrong!';
+const String accountSuccessMessage = 'Account created successfully.';
+const String pswdResetMessage =
+    'An email with a password reset link has been sent to your email address. Please check your inbox.';
+const String userNotFoundMessage =
+    'Sorry, we couldn\'t find any user associated with the provided email address.';
 
 class ImagesName {
   static String logo = 'lib/ui/assets/ibhavan-logo.jpg';

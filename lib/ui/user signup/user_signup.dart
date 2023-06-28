@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:medico_ibhavan/models/user_model.dart';
 import 'package:medico_ibhavan/ui/home/home.dart';
 import 'package:medico_ibhavan/ui/login/loginpage.dart';
 import 'package:medico_ibhavan/ui/nurse%20signup/signup_validators.dart';
 import 'package:medico_ibhavan/ui/user%20signup/user_signup_controller.dart';
 import 'package:medico_ibhavan/utils/auth.dart';
+import 'package:medico_ibhavan/utils/cloud_firestore.dart';
 import 'package:medico_ibhavan/utils/colors.dart';
-import 'package:medico_ibhavan/utils/components/alert_box.dart';
 import 'package:medico_ibhavan/utils/components/date_picker.dart';
 import 'package:medico_ibhavan/utils/components/my_button2.dart';
+import 'package:medico_ibhavan/utils/components/snackbar.dart';
 import 'package:medico_ibhavan/utils/components/text_feild.dart';
 import 'package:medico_ibhavan/utils/constants.dart';
 
@@ -41,11 +43,26 @@ class _UserSignUpPage extends State<UserSignUpPage> {
       password: controller.passwordController.text,
     )
         .then((_) {
-      // User registration successful
+      // User Authentication
       print('User registered successfully!');
       print(Auth().currentUser);
 
-      // Redirect to the home page and remove the sign-up page from the navigation stack
+      // User Date Store
+      final user = UserModel(
+          email: controller.emailController.text,
+          password: controller.passwordController.text,
+          firstName: controller.firstNameController.text,
+          lastName: controller.lastNameController.text,
+          dateOfBirth: controller.dateOfBirth,
+          phoneNo: controller.phoneController.text,
+          addressLine1: controller.addressLine1Controller.text,
+          addressLine2: controller.addressLine2Controller.text,
+          city: controller.cityController.text,
+          state: controller.stateController.text);
+
+      FireStore().createUser(user, context);
+
+      // Redirect to the home page.
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => HomePage()),
@@ -54,8 +71,17 @@ class _UserSignUpPage extends State<UserSignUpPage> {
     }).catchError((e) {
       // Error occurred during user registration
       setState(() {
-        errorMessage = e.message;
+        if (e.code == "email-already-in-use") {
+          errorMessage =
+              "The email address is already in use by another account.";
+        }
+        print(e.code);
         print(errorMessage);
+        CustomSnackBar.show(
+          context,
+          backgroundColor: Colors.redAccent.withOpacity(0.7),
+          message: errorMessage!,
+        );
       });
     });
   }
@@ -229,16 +255,11 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                           if (_formKey.currentState!.validate()) {
                             if (controller.dateOfBirth == null) {
                               setState(() {
-                                errorMessage = 'Please select a date of birth';
-                                print(errorMessage);
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return const AlertBox(
-                                      title: 'Date of Birth not selected',
-                                      message: 'Please select a date of birth.',
-                                    );
-                                  },
+                                CustomSnackBar.show(
+                                  context,
+                                  backgroundColor:
+                                      Colors.redAccent.withOpacity(0.7),
+                                  message: dobErrorMessage,
                                 );
                               });
                               return;
@@ -247,17 +268,15 @@ class _UserSignUpPage extends State<UserSignUpPage> {
 
                             //SignUp Logic
                             signUpWithEmailAndPassword();
+
+                            //Store User Data
                           } else {
                             print('Form invalid');
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const AlertBox(
-                                  title: 'Incomplete Details',
-                                  message:
-                                      'Please fill in all the required fields.',
-                                );
-                              },
+                            CustomSnackBar.show(
+                              context,
+                              backgroundColor:
+                                  Colors.redAccent.withOpacity(0.7),
+                              message: formErrorMessage,
                             );
                           }
                         },
