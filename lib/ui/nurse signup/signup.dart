@@ -52,7 +52,6 @@ class _SignUpPageState extends State<SignUpPage> {
       //User Data Store
       final user = NurseModel(
           email: controller.emailController.text,
-          password: controller.passwordController.text,
           firstName: controller.firstNameController.text,
           lastName: controller.lastNameController.text,
           dateOfBirth: controller.dateOfBirth,

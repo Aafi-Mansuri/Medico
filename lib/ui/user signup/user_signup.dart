@@ -50,7 +50,6 @@ class _UserSignUpPage extends State<UserSignUpPage> {
       // User Date Store
       final user = UserModel(
           email: controller.emailController.text,
-          password: controller.passwordController.text,
           firstName: controller.firstNameController.text,
           lastName: controller.lastNameController.text,
           dateOfBirth: controller.dateOfBirth,

@@ -1,7 +1,7 @@
 class UserModel {
   //Account Details
   final String? email;
-  final String? password;
+  // final String? password;
   final String userType = 'normal';
 
   //Personal Details
@@ -18,7 +18,7 @@ class UserModel {
 
   const UserModel(
       {required this.email,
-      required this.password,
+      // required this.password,
       required this.firstName,
       required this.lastName,
       required this.dateOfBirth,
@@ -31,7 +31,7 @@ class UserModel {
   toJson() {
     return {
       'email': email,
-      'password': password,
+      // 'password': password,
       'userType': userType,
       'firstName': firstName,
       'lastName': lastName,
