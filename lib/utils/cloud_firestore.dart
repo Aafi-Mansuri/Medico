@@ -10,7 +10,7 @@ class FireStore {
 
   Future createUser(UserModel user, BuildContext context) async {
     try {
-      await firestore.collection("Users").add(user.toJson());
+      await firestore.collection("Users").doc(user.email).set(user.toJson());
     } catch (error) {
       print('Create User Error: $error');
       CustomSnackBar.show(context,
@@ -21,12 +21,24 @@ class FireStore {
 
   Future createNurse(NurseModel user, BuildContext context) async {
     try {
-      await firestore.collection("Nurses").add(user.toJson());
+      await firestore.collection("Nurses").doc(user.email).set(user.toJson());
     } catch (error) {
       print('Create User Error: $error');
       CustomSnackBar.show(context,
           backgroundColor: Colors.redAccent.withOpacity(0.7),
           message: defaultErrorMessage);
+    }
+  }
+
+  Future getUserData(String email) async {
+    return await firestore.collection("Users").doc(email).get();
+  }
+
+  Future<void> updateUserData(UserModel user) async {
+    try {
+      await firestore.collection('Users').doc(user.email).update(user.toJson());
+    } catch (error) {
+      print('Update User Error: $error');
     }
   }
 }

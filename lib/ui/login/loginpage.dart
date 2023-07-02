@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:medico_ibhavan/ui/home/home.dart';
 import 'package:medico_ibhavan/ui/login/forgot_password.dart';
 import 'package:medico_ibhavan/ui/nurse%20signup/signup.dart';
+import 'package:medico_ibhavan/ui/user%20profile/profile_page.dart';
 import 'package:medico_ibhavan/ui/user%20signup/user_signup.dart';
 import 'package:medico_ibhavan/utils/auth.dart';
 import 'package:medico_ibhavan/utils/colors.dart';
-import 'package:medico_ibhavan/utils/components/alert_box.dart';
 import 'package:medico_ibhavan/utils/components/my_button2.dart';
 import 'package:medico_ibhavan/utils/components/snackbar.dart';
 import 'package:medico_ibhavan/utils/components/text_feild.dart';
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
       //Navigate to Home
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => const ProfilePage()),
         (route) => false,
       );
     }).catchError((e) {
@@ -79,7 +79,8 @@ class _LoginPageState extends State<LoginPage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => UserSignUpPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const UserSignUpPage()),
                     );
                   },
                   buttonText: "User"),
@@ -141,9 +142,12 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             const SizedBox(height: 65),
             SizedBox(
-              child: Image.asset(
-                ImagesName.logo,
-                height: 120,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.asset(
+                  ImagesName.logo,
+                  height: 120,
+                ),
               ),
             ),
             const SizedBox(

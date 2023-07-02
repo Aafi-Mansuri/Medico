@@ -8,16 +8,18 @@ class MyButton2 extends StatelessWidget {
   final Color textColor;
   final Color borderColor;
   final double vPadding;
+  final double hMargin;
 
-  const MyButton2(
-      {Key? key,
-      required this.onTap,
-      required this.buttonText,
-      this.backgroundColor = const Color(pureBlack),
-      this.textColor = const Color(pureWhite),
-      this.borderColor = Colors.transparent,
-      this.vPadding = 20})
-      : super(key: key);
+  const MyButton2({
+    Key? key,
+    required this.onTap,
+    required this.buttonText,
+    this.backgroundColor = const Color(pureBlack),
+    this.textColor = const Color(pureWhite),
+    this.borderColor = Colors.transparent,
+    this.vPadding = 20,
+    this.hMargin = 25,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class MyButton2 extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: vPadding),
-        margin: const EdgeInsets.symmetric(horizontal: 25),
+        margin: EdgeInsets.symmetric(horizontal: hMargin),
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(5),

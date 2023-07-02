@@ -7,7 +7,6 @@ import 'package:medico_ibhavan/ui/nurse%20signup/signup_validators.dart';
 import 'package:medico_ibhavan/utils/auth.dart';
 import 'package:medico_ibhavan/utils/cloud_firestore.dart';
 import 'package:medico_ibhavan/utils/colors.dart';
-import 'package:medico_ibhavan/utils/components/alert_box.dart';
 import 'package:medico_ibhavan/utils/components/date_picker.dart';
 import 'package:medico_ibhavan/utils/components/pdf_picker_button.dart';
 import 'package:medico_ibhavan/utils/components/my_button2.dart';
@@ -117,9 +116,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     children: [
                       const SizedBox(height: 75),
                       SizedBox(
-                        child: Image.asset(
-                          ImagesName.logo,
-                          height: 120,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: Image.asset(
+                            ImagesName.logo,
+                            height: 120,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 50),

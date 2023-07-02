@@ -1,22 +1,22 @@
 class UserModel {
   //Account Details
-  final String? email;
+  String? email;
   // final String? password;
-  final String userType = 'normal';
+  String userType = 'normal';
 
   //Personal Details
-  final String? firstName;
-  final String? lastName;
-  final String? dateOfBirth;
-  final String? phoneNo;
+  String? firstName;
+  String? lastName;
+  String? dateOfBirth;
+  String? phoneNo;
 
   //Address Details
-  final String? addressLine1;
-  final String? addressLine2;
-  final String? city;
-  final String? state;
+  String? addressLine1;
+  String? addressLine2;
+  String? city;
+  String? state;
 
-  const UserModel(
+  UserModel(
       {required this.email,
       // required this.password,
       required this.firstName,
@@ -42,5 +42,20 @@ class UserModel {
       'city': city,
       'state': state,
     };
+  }
+
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      email: json['email'],
+      // password: json['password'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      dateOfBirth: json['dateOfBirth'],
+      phoneNo: json['phoneNo'],
+      addressLine1: json['addressLine1'],
+      addressLine2: json['addressLine2'],
+      city: json['city'],
+      state: json['state'],
+    );
   }
 }

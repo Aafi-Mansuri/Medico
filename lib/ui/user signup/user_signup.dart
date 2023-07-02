@@ -112,9 +112,12 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                     children: [
                       const SizedBox(height: 75),
                       SizedBox(
-                        child: Image.asset(
-                          ImagesName.logo,
-                          height: 120,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: Image.asset(
+                            ImagesName.logo,
+                            height: 120,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 50),
@@ -248,7 +251,6 @@ class _UserSignUpPage extends State<UserSignUpPage> {
                         prefixIcon: Icons.location_on_outlined,
                       ),
                       const SizedBox(height: 40),
-                      const SizedBox(height: 30),
                       MyButton2(
                         onTap: () {
                           if (_formKey.currentState!.validate()) {

@@ -9,6 +9,7 @@ class MyTextField extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final IconData? prefixIcon;
   final bool showEyeIcon;
+  final String? value;
 
   const MyTextField({
     Key? key,
@@ -19,6 +20,7 @@ class MyTextField extends StatefulWidget {
     this.validator,
     this.prefixIcon,
     this.showEyeIcon = false,
+    this.value,
   }) : super(key: key);
 
   @override
@@ -33,6 +35,15 @@ class _MyTextFieldState extends State<MyTextField> {
   void initState() {
     super.initState();
     isObscureText = widget.obscureText;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (widget.value != null) {
+      widget.controller.text = widget.value!;
+    }
   }
 
   @override
