@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:medico_ibhavan/ui/welcome/welcome.dart';
 import 'package:medico_ibhavan/utils/auth.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class DummyHomePage extends StatelessWidget {
+  DummyHomePage({super.key});
 
   final User? user = Auth().currentUser;
 

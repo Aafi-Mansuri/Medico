@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medico_ibhavan/ui/login/loginpage.dart';
 import 'package:medico_ibhavan/ui/nurse%20signup/signup_validators.dart';
 import 'package:medico_ibhavan/utils/auth.dart';
 import 'package:medico_ibhavan/utils/colors.dart';
@@ -44,10 +45,21 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     }
   }
 
+  void _navigateToSignIn() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: _navigateToSignIn,
+        ),
         backgroundColor: const Color(bgcolor),
         title: const Text('Reset Password'),
       ),

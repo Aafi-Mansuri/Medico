@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:medico_ibhavan/models/user_model.dart';
-import 'package:medico_ibhavan/ui/home/home.dart';
+import 'package:medico_ibhavan/ui/dummy%20home/dummy_home.dart';
 import 'package:medico_ibhavan/ui/login/loginpage.dart';
+import 'package:medico_ibhavan/ui/main_screen.dart';
 import 'package:medico_ibhavan/ui/nurse%20signup/signup_validators.dart';
+import 'package:medico_ibhavan/ui/user%20profile/profile_page.dart';
 import 'package:medico_ibhavan/ui/user%20signup/user_signup_controller.dart';
 import 'package:medico_ibhavan/utils/auth.dart';
 import 'package:medico_ibhavan/utils/cloud_firestore.dart';
@@ -64,7 +66,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
       // Redirect to the home page.
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => const MainView()),
         (route) => false,
       );
     }).catchError((e) {
@@ -95,7 +97,7 @@ class _UserSignUpPage extends State<UserSignUpPage> {
             SliverAppBar(
               backgroundColor: const Color(bgcolor),
               leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
+                icon: const Icon(Icons.arrow_back_ios),
                 onPressed: _navigateToWelcomePage,
               ),
               pinned: false,

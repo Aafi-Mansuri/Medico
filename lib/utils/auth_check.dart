@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:medico_ibhavan/ui/home/home.dart';
+import 'package:medico_ibhavan/ui/dummy%20home/dummy_home.dart';
+import 'package:medico_ibhavan/ui/home/home_page.dart';
+import 'package:medico_ibhavan/ui/main_screen.dart';
 import 'package:medico_ibhavan/ui/user%20profile/profile_page.dart';
 import 'package:medico_ibhavan/ui/welcome/welcome.dart';
 import 'package:medico_ibhavan/utils/auth.dart';
@@ -20,7 +22,7 @@ class _AuthCheckState extends State<AuthCheck> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasData) {
-          return const ProfilePage();
+          return const MainView();
         } else {
           return const WelcomePage();
         }

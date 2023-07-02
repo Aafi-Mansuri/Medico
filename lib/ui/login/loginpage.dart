@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:medico_ibhavan/ui/home/home.dart';
+import 'package:medico_ibhavan/ui/dummy%20home/dummy_home.dart';
 import 'package:medico_ibhavan/ui/login/forgot_password.dart';
+import 'package:medico_ibhavan/ui/main_screen.dart';
 import 'package:medico_ibhavan/ui/nurse%20signup/signup.dart';
 import 'package:medico_ibhavan/ui/user%20profile/profile_page.dart';
 import 'package:medico_ibhavan/ui/user%20signup/user_signup.dart';
@@ -38,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
       //Navigate to Home
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const ProfilePage()),
+        MaterialPageRoute(builder: (context) => const MainView()),
         (route) => false,
       );
     }).catchError((e) {
@@ -129,10 +130,12 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: const Color(bgcolor),
       appBar: AppBar(
-        backgroundColor: Color(bgcolor),
-        title: const Text('Medico Sign In'),
+        backgroundColor: const Color(bgcolor),
+        title: const Text(
+          'Medico Sign In',
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: _navigateToWelcomePage,
         ),
       ),

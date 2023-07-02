@@ -31,6 +31,10 @@ class _EditProfilePage extends State<EditProfilePage> {
 
   bool isLoading = true; // New variable to track the loading state
 
+  Future<void> signOut() async {
+    await Auth().signOut();
+  }
+
   Future<void> fetchUserData() async {
     final snapshot = await FireStore().getUserData(currentUser!.email!);
     if (snapshot.exists) {
@@ -67,10 +71,7 @@ class _EditProfilePage extends State<EditProfilePage> {
   }
 
   void _navigateToProfile() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const ProfilePage()),
-    );
+    Navigator.pop(context);
   }
 
   @override
@@ -82,198 +83,186 @@ class _EditProfilePage extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: const Color(bgcolor),
-      //   title: const Text(
-      //     'Edit Profile',
-      //     style: TextStyle(fontWeight: FontWeight.bold),
-      //   ),
-      // ),
-      backgroundColor: const Color(whiteColor),
-      body: SafeArea(
-          child: CustomScrollView(
-        slivers: [
-          const SliverAppBar(
-            backgroundColor: Color(bgcolor),
-            pinned: false,
-            floating: true,
-            snap: true,
-            title: Text(
-              'Edit Profile',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+      backgroundColor: const Color(bgcolor),
+      appBar: AppBar(
+        backgroundColor: const Color(appBarBlack),
+        leading: GestureDetector(
+          onTap: _navigateToProfile,
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: Color(whiteColor),
           ),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Center(
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      //Profile Picture
-                      SizedBox(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: const Icon(
-                            Icons.person,
-                            size: 75,
-                          ),
-                        ),
-                      ),
+        ),
+        title: const Text('Edit Profile',
+            style: TextStyle(
+                color: Color(whiteColor), fontWeight: FontWeight.bold)),
+      ),
+      body: SafeArea(
+          child: SingleChildScrollView(
+              child: Center(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const SizedBox(height: 40),
 
-                      const SizedBox(height: 10),
-
-                      //User's Name
-                      if (!isLoading && user != null)
-                        Text(
-                          '${user!.firstName} ${user!.lastName}',
-                          style: const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-
-                      const SizedBox(height: 40),
-                      if (!isLoading && user != null)
-                        const Text(
-                          personal_details,
-                          style:
-                              TextStyle(fontSize: 15, color: Color(darkGrey)),
-                        ),
-                      const SizedBox(height: 15),
-                      if (!isLoading && user != null)
-                        MyTextField(
-                          controller: controller.firstNameController,
-                          hintText: first_name,
-                          obscureText: false,
-                          keyboardType: TextInputType.name,
-                          validator: Validators.validateFirstName,
-                          prefixIcon: Icons.person_outlined,
-                          value: user!.firstName,
-                        ),
-                      const SizedBox(height: 15),
-                      if (!isLoading && user != null)
-                        MyTextField(
-                          controller: controller.lastNameController,
-                          hintText: last_name,
-                          obscureText: false,
-                          keyboardType: TextInputType.name,
-                          validator: Validators.validateLastName,
-                          prefixIcon: Icons.person_outlined,
-                          value: user!.lastName,
-                        ),
-                      const SizedBox(height: 15),
-                      if (!isLoading && user != null)
-                        PickDate(
-                          buttonText: dob,
-                          controller: controller,
-                        ),
-                      const SizedBox(height: 15),
-                      if (!isLoading && user != null)
-                        MyTextField(
-                          controller: controller.phoneController,
-                          hintText: phone_no,
-                          obscureText: false,
-                          keyboardType: TextInputType.phone,
-                          validator: Validators.validatePhoneNumber,
-                          prefixIcon: Icons.phone,
-                          value: user!.phoneNo,
-                        ),
-
-                      const SizedBox(height: 40),
-                      if (!isLoading && user != null)
-                        const Text(
-                          address,
-                          style:
-                              TextStyle(fontSize: 15, color: Color(darkGrey)),
-                        ),
-                      const SizedBox(height: 15),
-                      if (!isLoading && user != null)
-                        MyTextField(
-                          controller: controller.addressLine1Controller,
-                          hintText: address_line1,
-                          obscureText: false,
-                          validator: Validators.validateAddressLine1,
-                          prefixIcon: Icons.location_on_outlined,
-                          value: user!.addressLine1,
-                        ),
-                      const SizedBox(height: 15),
-                      if (!isLoading && user != null)
-                        MyTextField(
-                          controller: controller.addressLine2Controller,
-                          hintText: address_line2,
-                          obscureText: false,
-                          validator: Validators.validateAddressLine2,
-                          prefixIcon: Icons.location_on_outlined,
-                          value: user!.addressLine2,
-                        ),
-                      const SizedBox(height: 15),
-
-                      if (!isLoading && user != null)
-                        MyTextField(
-                          controller: controller.cityController,
-                          hintText: city,
-                          obscureText: false,
-                          validator: Validators.validateCity,
-                          prefixIcon: Icons.location_on_outlined,
-                          value: user!.city,
-                        ),
-                      const SizedBox(height: 15),
-                      if (!isLoading && user != null)
-                        MyTextField(
-                          controller: controller.stateController,
-                          hintText: state,
-                          obscureText: false,
-                          validator: Validators.validateState,
-                          prefixIcon: Icons.location_on_outlined,
-                          value: user!.state,
-                        ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      if (!isLoading && user != null)
-                        MyButton2(
-                            buttonText: 'Save Changes',
-                            onTap: () {
-                              if (_formKey.currentState!.validate()) {
-                                print('Form is valid.');
-
-                                if (controller.dateOfBirth == null) {
-                                  setState(() {
-                                    errorMessage =
-                                        'Please select a date of birth';
-                                    print(errorMessage);
-                                    CustomSnackBar.show(
-                                      context,
-                                      backgroundColor:
-                                          Colors.redAccent.withOpacity(0.7),
-                                      message: dobErrorMessage,
-                                    );
-                                  });
-                                  return;
-                                }
-                                //Account Update logic
-                                updateUserProfile();
-                                _navigateToProfile();
-                                CustomSnackBar.show(
-                                  context,
-                                  backgroundColor:
-                                      Colors.green.withOpacity(0.7),
-                                  message: 'Profile updated successfully.',
-                                );
-                              }
-                            }),
-                      const SizedBox(height: 40),
-                    ],
+                //Profile Picture
+                SizedBox(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: const Icon(
+                      Icons.person,
+                      size: 75,
+                    ),
                   ),
                 ),
-              ),
+
+                const SizedBox(height: 10),
+
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  alignment: Alignment.topCenter,
+                  child: const Text(
+                    'Please make the necessary changes to update your profile details',
+                    style: TextStyle(fontSize: 15, color: Color(black)),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+
+                const SizedBox(height: 40),
+                if (!isLoading && user != null)
+                  const Text(
+                    personal_details,
+                    style: TextStyle(fontSize: 15, color: Color(darkGrey)),
+                  ),
+                const SizedBox(height: 15),
+                if (!isLoading && user != null)
+                  MyTextField(
+                    controller: controller.firstNameController,
+                    hintText: first_name,
+                    obscureText: false,
+                    keyboardType: TextInputType.name,
+                    validator: Validators.validateFirstName,
+                    prefixIcon: Icons.person_outlined,
+                    value: user!.firstName,
+                  ),
+                const SizedBox(height: 15),
+                if (!isLoading && user != null)
+                  MyTextField(
+                    controller: controller.lastNameController,
+                    hintText: last_name,
+                    obscureText: false,
+                    keyboardType: TextInputType.name,
+                    validator: Validators.validateLastName,
+                    prefixIcon: Icons.person_outlined,
+                    value: user!.lastName,
+                  ),
+                const SizedBox(height: 15),
+                if (!isLoading && user != null)
+                  PickDate(
+                    buttonText: dob,
+                    controller: controller,
+                  ),
+                const SizedBox(height: 15),
+                if (!isLoading && user != null)
+                  MyTextField(
+                    controller: controller.phoneController,
+                    hintText: phone_no,
+                    obscureText: false,
+                    keyboardType: TextInputType.phone,
+                    validator: Validators.validatePhoneNumber,
+                    prefixIcon: Icons.phone,
+                    value: user!.phoneNo,
+                  ),
+
+                const SizedBox(height: 40),
+                if (!isLoading && user != null)
+                  const Text(
+                    address,
+                    style: TextStyle(fontSize: 15, color: Color(darkGrey)),
+                  ),
+                const SizedBox(height: 15),
+                if (!isLoading && user != null)
+                  MyTextField(
+                    controller: controller.addressLine1Controller,
+                    hintText: address_line1,
+                    obscureText: false,
+                    validator: Validators.validateAddressLine1,
+                    prefixIcon: Icons.location_on_outlined,
+                    value: user!.addressLine1,
+                  ),
+                const SizedBox(height: 15),
+                if (!isLoading && user != null)
+                  MyTextField(
+                    controller: controller.addressLine2Controller,
+                    hintText: address_line2,
+                    obscureText: false,
+                    validator: Validators.validateAddressLine2,
+                    prefixIcon: Icons.location_on_outlined,
+                    value: user!.addressLine2,
+                  ),
+                const SizedBox(height: 15),
+
+                if (!isLoading && user != null)
+                  MyTextField(
+                    controller: controller.cityController,
+                    hintText: city,
+                    obscureText: false,
+                    validator: Validators.validateCity,
+                    prefixIcon: Icons.location_on_outlined,
+                    value: user!.city,
+                  ),
+                const SizedBox(height: 15),
+                if (!isLoading && user != null)
+                  MyTextField(
+                    controller: controller.stateController,
+                    hintText: state,
+                    obscureText: false,
+                    validator: Validators.validateState,
+                    prefixIcon: Icons.location_on_outlined,
+                    value: user!.state,
+                  ),
+                const SizedBox(
+                  height: 40,
+                ),
+                if (!isLoading && user != null)
+                  MyButton2(
+                      buttonText: 'Save Changes',
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          print('Form is valid.');
+
+                          if (controller.dateOfBirth == null) {
+                            setState(() {
+                              errorMessage = 'Please select a date of birth';
+                              print(errorMessage);
+                              CustomSnackBar.show(
+                                context,
+                                backgroundColor:
+                                    Colors.redAccent.withOpacity(0.7),
+                                message: dobErrorMessage,
+                              );
+                            });
+                            return;
+                          }
+                          //Account Update logic
+                          updateUserProfile();
+                          _navigateToProfile();
+                          CustomSnackBar.show(
+                            context,
+                            backgroundColor: Colors.green.withOpacity(0.7),
+                            message: 'Profile updated successfully.',
+                          );
+                        }
+                      }),
+                const SizedBox(height: 40),
+              ],
             ),
-          )
-        ],
-      )),
+          ),
+        ),
+      ))),
     );
   }
 }
