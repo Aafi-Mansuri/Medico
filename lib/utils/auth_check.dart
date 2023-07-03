@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medico_ibhavan/ui/dummy%20home/dummy_home.dart';
 import 'package:medico_ibhavan/ui/home/home_page.dart';
-import 'package:medico_ibhavan/ui/main_screen.dart';
+import 'package:medico_ibhavan/ui/main%20page/main_screen.dart';
 import 'package:medico_ibhavan/ui/user%20profile/profile_page.dart';
 import 'package:medico_ibhavan/ui/welcome/welcome.dart';
 import 'package:medico_ibhavan/utils/auth.dart';

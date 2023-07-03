@@ -71,7 +71,10 @@ class _EditProfilePage extends State<EditProfilePage> {
   }
 
   void _navigateToProfile() {
-    Navigator.pop(context);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const ProfilePage()),
+    );
   }
 
   @override
@@ -250,11 +253,11 @@ class _EditProfilePage extends State<EditProfilePage> {
                           //Account Update logic
                           updateUserProfile();
                           _navigateToProfile();
-                          CustomSnackBar.show(
-                            context,
-                            backgroundColor: Colors.green.withOpacity(0.7),
-                            message: 'Profile updated successfully.',
-                          );
+                          // CustomSnackBar.show(
+                          //   context,
+                          //   backgroundColor: Colors.green.withOpacity(0.7),
+                          //   message: 'Profile updated successfully.',
+                          // );
                         }
                       }),
                 const SizedBox(height: 40),

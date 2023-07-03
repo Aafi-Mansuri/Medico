@@ -118,17 +118,20 @@ class _SearchPageState extends State<SearchPage> {
                       itemCount: _foundUsers.length,
                       itemBuilder: (context, index) => Card(
                         key: ValueKey(_foundUsers[index]["id"]),
-                        color: Colors.blue,
-                        elevation: 4,
+                        color: const Color(primaryLight),
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         child: ListTile(
-                          leading: Text(
-                            _foundUsers[index]["id"].toString(),
+                          // leading: Text(
+                          //   _foundUsers[index]["id"].toString(),
+                          //   style: const TextStyle(
+                          //       fontSize: 20, color: Color(appBarBlack)),
+                          // ),
+                          title: Text(
+                            _foundUsers[index]['name'],
                             style: const TextStyle(
-                                fontSize: 24, color: Colors.white),
+                                fontSize: 20, color: Color(appBarBlack)),
+                            textAlign: TextAlign.center,
                           ),
-                          title: Text(_foundUsers[index]['name'],
-                              style: const TextStyle(color: Colors.white)),
                         ),
                       ),
                     )

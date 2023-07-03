@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medico_ibhavan/models/user_model.dart';
 import 'package:medico_ibhavan/ui/dummy%20home/dummy_home.dart';
 import 'package:medico_ibhavan/ui/login/loginpage.dart';
-import 'package:medico_ibhavan/ui/main_screen.dart';
+import 'package:medico_ibhavan/ui/main%20page/main_screen.dart';
 import 'package:medico_ibhavan/ui/nurse%20signup/signup_validators.dart';
 import 'package:medico_ibhavan/ui/user%20profile/profile_page.dart';
 import 'package:medico_ibhavan/ui/user%20signup/user_signup_controller.dart';

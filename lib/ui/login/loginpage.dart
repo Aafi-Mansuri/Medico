@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medico_ibhavan/ui/dummy%20home/dummy_home.dart';
 import 'package:medico_ibhavan/ui/login/forgot_password.dart';
-import 'package:medico_ibhavan/ui/main_screen.dart';
+import 'package:medico_ibhavan/ui/main%20page/main_screen.dart';
 import 'package:medico_ibhavan/ui/nurse%20signup/signup.dart';
 import 'package:medico_ibhavan/ui/user%20profile/profile_page.dart';
 import 'package:medico_ibhavan/ui/user%20signup/user_signup.dart';
@@ -98,25 +98,6 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   },
                   buttonText: "Nurse"),
-              //   TextButton(
-              //     onPressed: () {
-
-              //     },
-              //     child: const Text(
-              //       "User",
-              //       style: TextStyle(color: Color(blue)),
-              //     ),
-              //   ),
-              //   TextButton(
-              //       onPressed: () {
-              //         Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (context) =>
-              //                   const SignUpPage()),
-              //         );
-              //       },
-              //       child: const Text("Nurse")),
             ],
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(16))),
@@ -171,11 +152,9 @@ class _LoginPageState extends State<LoginPage> {
               obscureText: false,
               prefixIcon: Icons.account_circle,
             ),
-
             const SizedBox(
               height: 10,
             ),
-
             MyTextField(
               controller: controller.passwordController,
               hintText: password,
@@ -183,9 +162,7 @@ class _LoginPageState extends State<LoginPage> {
               obscureText: true,
               prefixIcon: Icons.lock_outline_rounded,
             ),
-
             forgetPassword(context),
-
             const SizedBox(height: 20),
             MyButton2(
               onTap: () {
@@ -197,7 +174,6 @@ class _LoginPageState extends State<LoginPage> {
               },
               buttonText: 'Sign In',
             ),
-
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -210,45 +186,11 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
-                        color: Color(blue)),
+                        color: Color(primaryDark2)),
                   ),
                 ),
               ],
             ),
-
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            //   child: Row(
-            //     children: [
-            //       Expanded(
-            //         child: Divider(
-            //           thickness: 0.5,
-            //           color: Colors.grey[400],
-            //         ),
-            //       ),
-            //       Padding(
-            //         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            //         child: Text('Or continue with',
-            //             style: TextStyle(color: Colors.grey[700])),
-            //       ),
-            //       Expanded(
-            //         child: Divider(
-            //           thickness: 0.5,
-            //           color: Colors.grey[400],
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            //const SizedBox(height: 20),
-            // const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            //   SquareTile(imagePath: 'lib/images/google.png'),
-            //   SizedBox(
-            //     width: 25,
-            //   ),
-            //   SquareTile(imagePath: 'lib/images/facebook.png'),
-            // ]),
-            //const SizedBox(height: 50),
           ],
         ),
       ),
@@ -264,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
       child: TextButton(
         child: const Text(
           "Forgot Password?",
-          style: TextStyle(color: Color(blue)),
+          style: TextStyle(color: Color(primaryDark2)),
           textAlign: TextAlign.right,
         ),
         onPressed: () {
@@ -276,18 +218,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
-  // Widget register(BuildContext context) {
-  //   return Container(
-  //     alignment: Alignment.bottomRight,
-  //     child: TextButton(
-  //       child: const Text(
-  //         "Register Now?",
-  //         style: TextStyle(color: Colors.blue),
-  //         textAlign: TextAlign.right,
-  //       ), // Text
-  //       onPressed: () {},
-  //     ), // TextButton
-  //   ); // Container
-  // }
 }

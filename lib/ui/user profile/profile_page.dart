@@ -21,8 +21,12 @@ class _ProfilePageState extends State<ProfilePage> {
   final User? currentUser = Auth().currentUser;
   UserModel? user;
 
+  void _navigateToBack() {
+    Navigator.pop(context);
+  }
+
   void _navigateToEditProfile() {
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const EditProfilePage()),
     );
@@ -39,6 +43,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> signOut() async {
     await Auth().signOut();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const WelcomePage()),
+    );
   }
 
   @override
@@ -53,10 +61,10 @@ class _ProfilePageState extends State<ProfilePage> {
       backgroundColor: const Color(bgcolor),
       appBar: AppBar(
         backgroundColor: const Color(appBarBlack),
-        leading: const Icon(
-          Icons.person,
-          color: Color(whiteColor),
-          size: 27,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios,
+              color: Color(whiteColor), size: 27),
+          onPressed: _navigateToBack,
         ),
         title: const Text(
           'Profile',
@@ -66,12 +74,15 @@ class _ProfilePageState extends State<ProfilePage> {
         actions: [
           GestureDetector(
             child: Container(
-              width: 40,
-              height: 40,
-              margin: const EdgeInsets.symmetric(horizontal: 5),
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                color: const Color(slate),
+                borderRadius: BorderRadius.circular(100),
+              ),
+              padding: const EdgeInsets.all(5),
               child: const Icon(
                 Icons.logout_outlined,
-                color: Color(whiteColor),
+                color: Color(primary),
               ),
             ),
             onTap: () {
@@ -216,11 +227,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 onTap: () {
                   signOut();
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const WelcomePage()),
-                  );
                 },
               ),
               const SizedBox(height: 30),

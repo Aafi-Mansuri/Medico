@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medico_ibhavan/models/user_model.dart';
+import 'package:medico_ibhavan/utils/auth.dart';
+import 'package:medico_ibhavan/utils/cloud_firestore.dart';
 import 'package:medico_ibhavan/utils/colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,10 +14,28 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final servicesList = ['Service 1', 'Service 2', 'Service 3'];
 
+  final User? currentUser = Auth().currentUser;
+  UserModel? user;
+
+  Future<void> fetchUserData() async {
+    final snapshot = await FireStore().getUserData(currentUser!.email!);
+    if (snapshot.exists) {
+      final data = snapshot.data() as Map<String, dynamic>;
+      user = UserModel.fromJson(data);
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(bgcolor),
+        backgroundColor: const Color(bgcolor),
         appBar: AppBar(
           backgroundColor: const Color(appBarBlack),
           leading: const Icon(
@@ -21,9 +43,9 @@ class _HomePageState extends State<HomePage> {
             color: Color(whiteColor),
             size: 27,
           ),
-          title: const Text(
-            'Hi, User!',
-            style: TextStyle(
+          title: Text(
+            'Hello ${user?.firstName ?? ''}!',
+            style: const TextStyle(
               color: Color(whiteColor),
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -34,12 +56,11 @@ class _HomePageState extends State<HomePage> {
             Container(
                 margin: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
-                  color: const Color(primary),
-                  borderRadius: BorderRadius.circular(12),
+                  color: const Color(slate),
+                  borderRadius: BorderRadius.circular(100),
                 ),
-                padding: const EdgeInsets.all(7),
-                child:
-                    const Icon(Icons.notifications, color: Color(whiteColor))),
+                padding: const EdgeInsets.all(5),
+                child: const Icon(Icons.notifications, color: Color(primary))),
           ],
         ),
         body: SingleChildScrollView(
@@ -78,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                        color: Color(primaryLight),
+                        color: const Color(primaryLight),
                         borderRadius: BorderRadius.circular(12)),
                     child: Row(children: [
                       SizedBox(
@@ -157,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 1,
-                      childAspectRatio: 5,
+                      childAspectRatio: 6,
                       crossAxisSpacing: 7,
                       mainAxisSpacing: 10,
                     ), // Sliver GridDelegateWith FixedCrossAxis Count
